@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Виктор Адамус](https://up.htmlacademy.ru/javascript/26/user/1851765).
-* Наставник: `Неизвестно`.
+* Наставник: [Alex Elkin](https://htmlacademy.ru/profile/alex_elkin).
 
 ---
 
