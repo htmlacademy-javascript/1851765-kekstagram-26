@@ -10,13 +10,12 @@ function getRandomInRange(min, max) {
 
 getRandomInRange();
 
-//проверка строки на кол-во символов
+//проверка строки на кол-во символов, для переменной string использовать ''.
 function checkLengthString (string, maxString) {
-  if( maxString - string.length >= 0) {
-    throw new Error(`Осталось ввести: ${ maxString - string.length} символов.`);
-  } else {
-    throw new Error(`Допустимое количество символов: ${ maxString} . У Вас перебор =)`);
+  if ((typeof string === 'string') && ( maxString - string.length >= 0))  {
+    return true;
   }
+  return false;
 }
 
 checkLengthString();
