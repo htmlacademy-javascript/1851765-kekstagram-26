@@ -3,7 +3,6 @@ import {getRandomPositiveInteger} from './util.js';
 let commentId = 1; //начальное число id
 const commentAvatar = [1,6]; //количество аватарок
 const maxCommentsQuantity = [1,4]; //случайное число из промежутка для количества комментариев под постом
-const quantityPosts = 25; // количество постов с комментариями
 const likesForPost = [15, 200]; // случайное количество лайков под постом из интервала
 // комментарии
 const commentMessages = ['Всё отлично!',
@@ -64,13 +63,13 @@ const createNewPost = (postId) => ({
 });
 
 //создание нужного количества постов в массиве
-const createPosts = (quantity) => {
+const createPosts = (count) => {
   const arrayPosts = [];
-  for(let j = 1; j <= quantity; j++){
+  for(let j = 1; j <= count; j++){
     createArrayComments();
     arrayPosts.push(createNewPost(j));
   }
   return arrayPosts;
 };
-createPosts(quantityPosts);
-export {quantityPosts, createPosts};
+createPosts(25);
+export {createPosts};

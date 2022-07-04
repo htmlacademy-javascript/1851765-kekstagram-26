@@ -1,2 +1,2 @@
-import{createPosts, quantityPosts} from './data.js';
-createPosts(quantityPosts);
+import './creat-miniatures.js';
+
