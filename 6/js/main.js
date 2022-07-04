@@ -1,0 +1,2 @@
+import './creat-miniatures.js';
+
