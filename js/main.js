@@ -1,2 +1,2 @@
-import './data.js';
-
+import{createPosts, quantityPosts} from './data.js';
+createPosts(quantityPosts);

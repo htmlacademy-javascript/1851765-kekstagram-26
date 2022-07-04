@@ -73,3 +73,4 @@ const createPosts = (quantity) => {
   return arrayPosts;
 };
 createPosts(quantityPosts);
+export {quantityPosts, createPosts};
