@@ -59,7 +59,7 @@ const createNewPost = (postId) => ({
   url: `photos/${  postId  }.jpg`,
   likes: getRandomNumber(likesForPost),
   description: getRandomArrayElement(postDescriptions),
-  comment: createArrayComments()
+  comments: createArrayComments()
 });
 
 //создание нужного количества постов в массиве
