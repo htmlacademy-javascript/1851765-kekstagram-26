@@ -5,7 +5,7 @@ const getRandomPositiveInteger = (a, b) => {
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
 };
-getRandomPositiveInteger();
+
 //проверка строки на кол-во символов, для переменной string использовать ''.
 const checkLengthString = (string, maxString) => {
   if ((typeof string === 'string') && ( maxString - string.length >= 0))  {
@@ -13,6 +13,7 @@ const checkLengthString = (string, maxString) => {
   }
   return false;
 };
-checkLengthString();
 
-export {getRandomPositiveInteger, checkLengthString};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomPositiveInteger, checkLengthString, isEscapeKey};

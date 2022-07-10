@@ -71,5 +71,4 @@ const createPosts = (count) => {
   }
   return arrayPosts;
 };
-createPosts(25);
 export {createPosts};
