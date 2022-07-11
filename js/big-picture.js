@@ -45,8 +45,9 @@ bigPictureCloseBtn.addEventListener('click', () =>{
   closeBigPicture();
 });
 picturesList.addEventListener('click', getBigPictureData);
-const socialCommentElement = socialComment.cloneNode(true);
+
 const getComment = (item) => {
+  const socialCommentElement = socialComment.cloneNode(true);
   const picture = socialCommentElement.querySelector('.social__picture');
   picture.src = item.avatar;
   picture.alt = item.name;
@@ -57,12 +58,11 @@ const getComment = (item) => {
 };
 
 const commentFragment = document.createDocumentFragment();
-
 const addComments = (arr) => {
   arr.forEach((item) => {
     commentFragment.append(getComment(item));
-    socialCommentList.append(commentFragment);
   });
+  socialCommentList.append(commentFragment);
 };
 
 
