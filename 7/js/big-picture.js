@@ -1,5 +1,5 @@
 import {isEscapeKey} from './util.js';
-import {miniaturesArray} from './creat-miniatures.js';
+import {miniaturesArray} from './data.js';
 const body = document.body;
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = document.querySelector('.big-picture__img').querySelector('img');
@@ -46,45 +46,39 @@ bigPictureCloseBtn.addEventListener('click', () =>{
 });
 picturesList.addEventListener('click', getBigPictureData);
 
-const commentList = [];
-miniaturesArray.forEach((item) => {
-  commentList.push(item.comments);
-});
-
 const getComment = (item) => {
   const socialCommentElement = socialComment.cloneNode(true);
-  socialCommentElement.querySelector('.social__picture').src = item.avatar;
-  socialCommentElement.querySelector('.social__picture').alt = item.name;
+  const picture = socialCommentElement.querySelector('.social__picture');
+  picture.src = item.avatar;
+  picture.alt = item.name;
+  picture.width = COMMENT_WIDTH;
+  picture.height = COMMENT_HEIGHT;
   socialCommentElement.querySelector('.social__text').textContent = item.message;
-  socialCommentElement.querySelector('.social__picture').width = COMMENT_WIDTH;
-  socialCommentElement.querySelector('.social__picture').height = COMMENT_HEIGHT;
   return socialCommentElement;
 };
 
 const commentFragment = document.createDocumentFragment();
 const addComments = (arr) => {
   arr.forEach((item) => {
-    item.forEach(({avatar, message, name}) => {
-      commentFragment.append(getComment({avatar, message, name}));
-    });
+    commentFragment.append(getComment(item));
   });
+  socialCommentList.append(commentFragment);
 };
+
 
 function getBigPictureData (evt){
   if (evt.target.tagName === 'IMG') {
-    miniaturesArray.find(({description, comments, likes,url, id}) => {
-      if (Number(id) === Number(evt.target.dataset.id)) {
-        bigPictureImg.src = url;
-        socialCaption.textContent = description;
-        commentCount.textContent = comments.length;
-        likesCount.textContent = likes;
-        for (let i =0; i <=commentList[i].length; i++) {
-          addComments(commentList);
-          socialCommentList.append(commentFragment);
-        }
-      }
-    });
+    const photo = miniaturesArray.find(({id}) => Number(id) === Number(evt.target.dataset.id));
+    if (photo) {
+      bigPictureImg.src = photo.url;
+      socialCaption.textContent = photo.description;
+      commentCount.textContent = photo.comments.length;
+      likesCount.textContent = photo.likes;
+      socialCommentList.innerHTML = '';
+      addComments(photo.comments);
+    }
     openBigPicture();
   }
 }
+export {getBigPictureData};
 

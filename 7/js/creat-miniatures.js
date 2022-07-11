@@ -1,24 +1,18 @@
-import{createPosts} from './data.js';
 const miniatureTemplate = document.querySelector('#picture').content;
 const miniaturesList = document.querySelector('.pictures');
-//создаем массив с заданным количеством обьектов
-const miniaturesArray = createPosts(25);
 
 const miniatureListFragment = document.createDocumentFragment();
 //перебираем массив, поочереди беря из каждого обьекта - значения ключей (свойства)
-const createMiniImages = (miniatures) => {
-  let counter = 1;
-  miniatures.forEach(({url, likes, comments}) =>{
+const createMiniImageList = (miniatures) => {
+  miniatures.forEach(({id, url, likes, comments}) =>{
     const miniatureItem = miniatureTemplate.cloneNode(true);
     miniatureItem.querySelector('.picture__img').src = url;
     miniatureItem.querySelector('.picture__likes').textContent = likes;
     miniatureItem.querySelector('.picture__comments').textContent = comments.length;
-    miniatureItem.querySelector('.picture__img').setAttribute('data-id',counter);
+    miniatureItem.querySelector('.picture__img').dataset.id = id;
     miniaturesList.appendChild(miniatureItem);
-    counter++;
   });
 };
 miniaturesList.appendChild(miniatureListFragment);
-
-export {createMiniImages, miniaturesArray};
+export {createMiniImageList};
 
