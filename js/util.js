@@ -14,6 +14,9 @@ const checkLengthString = (string, maxString) => {
   return false;
 };
 
+const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)]; // ищем случайный элемент массива
+const getRandomNumber = (numbers) => getRandomPositiveInteger(numbers[0], numbers[1]); //ищем случайное число из интервала
+
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomPositiveInteger, checkLengthString, isEscapeKey};
+export {getRandomPositiveInteger, checkLengthString, isEscapeKey, getRandomArrayElement, getRandomNumber};

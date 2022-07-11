@@ -1,4 +1,6 @@
-import {createMiniImages, miniaturesArray} from './creat-miniatures.js';
-import './big-picture.js';
-createMiniImages(miniaturesArray);
+import {miniaturesArray} from './data.js';
+import {createMiniImageList } from './creat-miniatures.js';
+import {getBigPictureData} from './big-picture.js';
+createMiniImageList(miniaturesArray);
+getBigPictureData();
 
