@@ -1,4 +1,4 @@
-import {getRandomPositiveInteger} from './util.js';
+import {getRandomArrayElement, getRandomNumber} from './util.js';
 //создание постов
 let commentId = 1; //начальное число id
 const commentAvatar = [1,6]; //количество аватарок
@@ -37,8 +37,7 @@ const postDescriptions = ['Кто богаты, тем и рады',
   'Хватит париться, живи как нравится!',
   'Можно не бояться быть дураком. Кругом все свои.',
   'Меня деньги не волнуют! Они меня успокаивают.'];
-const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)]; // ищем случайный элемент массива
-const getRandomNumber = (numbers) => getRandomPositiveInteger(numbers[0], numbers[1]); //ищем случайное число из интервала
+
 // создаем массив из случайного количества комментариев
 const createArrayComments = () => {
   const commentsForPost =[];
@@ -59,7 +58,7 @@ const createNewPost = (postId) => ({
   url: `photos/${  postId  }.jpg`,
   likes: getRandomNumber(likesForPost),
   description: getRandomArrayElement(postDescriptions),
-  comment: createArrayComments()
+  comments: createArrayComments()
 });
 
 //создание нужного количества постов в массиве
@@ -71,5 +70,6 @@ const createPosts = (count) => {
   }
   return arrayPosts;
 };
-createPosts(25);
-export {createPosts};
+//создаем массив с заданным количеством обьектов
+const miniaturesArray = createPosts(25);
+export {miniaturesArray};

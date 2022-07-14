@@ -5,7 +5,7 @@ const getRandomPositiveInteger = (a, b) => {
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
 };
-getRandomPositiveInteger();
+
 //проверка строки на кол-во символов, для переменной string использовать ''.
 const checkLengthString = (string, maxString) => {
   if ((typeof string === 'string') && ( maxString - string.length >= 0))  {
@@ -13,6 +13,10 @@ const checkLengthString = (string, maxString) => {
   }
   return false;
 };
-checkLengthString();
 
-export {getRandomPositiveInteger, checkLengthString};
+const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)]; // ищем случайный элемент массива
+const getRandomNumber = (numbers) => getRandomPositiveInteger(numbers[0], numbers[1]); //ищем случайное число из интервала
+//проверяем нажата ли клавиша esc
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomPositiveInteger, checkLengthString, isEscapeKey, getRandomArrayElement, getRandomNumber};
