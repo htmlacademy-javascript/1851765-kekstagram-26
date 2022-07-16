@@ -7,8 +7,6 @@ const body = document.querySelector('body');
 const formCloseBtn = document.querySelector('#upload-cancel');
 const textHashtagsField = document.querySelector('.text__hashtags');
 const formElement = document.querySelector('#upload-select-image');
-// const uploadSubmitBtn = document.querySelector('#upload-submit');
-
 const textDescriptionField = document.querySelector('.text__description');
 
 
@@ -32,7 +30,8 @@ function openFormLoad() {
 function closeFormLoad () {
   body.classList.add('modal-open');
   overlayElement.classList.add('hidden');
-
+  formElement.reset();
+  imagePreview.className = ''; //обнуляем эффекты на картинке
   document.removeEventListener('keydown', onPictureFormEscKeydown);
 }
 
@@ -50,14 +49,15 @@ function loadPicture (event) {
   openFormLoad();
 }
 formElement.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  if (pristine.validate()) {
-    evt.target.submit();
-    closeFormLoad ();
+  if (!pristine.validate()) {
+    evt.preventDefault();
   }
 });
 
 formCloseBtn.addEventListener('click', () => closeFormLoad());
-imageInput.addEventListener('change', loadPicture);
 
-export {loadPicture};
+const loadYourPicture = () => {
+  imageInput.addEventListener('change', loadPicture);
+};
+
+export {loadYourPicture};
