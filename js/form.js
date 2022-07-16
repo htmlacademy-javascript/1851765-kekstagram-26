@@ -26,12 +26,13 @@ function openFormLoad() {
 
   document.addEventListener('keydown', onPictureFormEscKeydown);
 }
-//закрывем окно редактирования и удаляее слушатель но esc
+//закрывем окно редактирования и удаляет слушатель на esc
 function closeFormLoad () {
   body.classList.add('modal-open');
   overlayElement.classList.add('hidden');
-  formElement.reset();
-  imagePreview.className = ''; //обнуляем эффекты на картинке
+  imagePreview.style.scale = 1; //обнуляем масштаб изображения
+  formElement.reset(); // обнуляем формы
+  imagePreview.className = ''; //обнуляем эффекты на изображении
   document.removeEventListener('keydown', onPictureFormEscKeydown);
 }
 
