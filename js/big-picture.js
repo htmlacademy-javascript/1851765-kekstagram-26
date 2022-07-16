@@ -45,8 +45,6 @@ bigPictureCloseBtn.addEventListener('click', () =>{
   closeBigPicture();
 });
 
-picturesList.addEventListener('click', getBigPictureData);
-
 const getComment = (item) => {
   const socialCommentElement = socialComment.cloneNode(true);
   const picture = socialCommentElement.querySelector('.social__picture');
@@ -67,10 +65,13 @@ const addComments = (arr) => {
   socialCommentList.append(commentFragment);
 };
 
+const viewBigPicture = () => {
+  picturesList.addEventListener('click', getBigPictureData);
+};
 
-function getBigPictureData (event){
-  if (event.target.tagName === 'IMG') {
-    const photo = miniaturesArray.find(({id}) => Number(id) === Number(event.target.dataset.id));
+function getBigPictureData (evt){
+  if (evt.target.tagName === 'IMG') {
+    const photo = miniaturesArray.find(({id}) => Number(id) === Number(evt.target.dataset.id));
     if (photo) {
       bigPictureImg.src = photo.url;
       socialCaption.textContent = photo.description;
@@ -82,5 +83,6 @@ function getBigPictureData (event){
     openBigPicture();
   }
 }
-export {getBigPictureData};
+
+export {viewBigPicture};
 

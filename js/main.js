@@ -1,8 +1,13 @@
 import { miniaturesArray } from './data.js';
 import { createMiniImageList } from './creat-miniatures.js';
-import { getBigPictureData } from './big-picture.js';
-import { loadPicture} from './form.js';
+import { viewBigPicture } from './big-picture.js';
+import { loadYourPicture } from './form.js';
+import { controlScaleImage } from './control-scale-image.js';
+import { addEffectsImage } from './filter-image.js';
 createMiniImageList(miniaturesArray);
-getBigPictureData();
-loadPicture();
+viewBigPicture();
+loadYourPicture();
+controlScaleImage();
+addEffectsImage();
+
 
