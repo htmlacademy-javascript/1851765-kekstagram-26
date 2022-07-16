@@ -53,7 +53,7 @@ formElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
   if (pristine.validate()) {
     evt.target.submit();
-    closeFormLoad();
+    closeFormLoad ();
   }
 });
 
