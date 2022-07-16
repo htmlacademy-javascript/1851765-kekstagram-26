@@ -44,6 +44,7 @@ function closeBigPicture () {
 bigPictureCloseBtn.addEventListener('click', () =>{
   closeBigPicture();
 });
+
 picturesList.addEventListener('click', getBigPictureData);
 
 const getComment = (item) => {
@@ -58,6 +59,7 @@ const getComment = (item) => {
 };
 
 const commentFragment = document.createDocumentFragment();
+
 const addComments = (arr) => {
   arr.forEach((item) => {
     commentFragment.append(getComment(item));
@@ -66,9 +68,9 @@ const addComments = (arr) => {
 };
 
 
-function getBigPictureData (evt){
-  if (evt.target.tagName === 'IMG') {
-    const photo = miniaturesArray.find(({id}) => Number(id) === Number(evt.target.dataset.id));
+function getBigPictureData (event){
+  if (event.target.tagName === 'IMG') {
+    const photo = miniaturesArray.find(({id}) => Number(id) === Number(event.target.dataset.id));
     if (photo) {
       bigPictureImg.src = photo.url;
       socialCaption.textContent = photo.description;
