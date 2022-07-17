@@ -44,7 +44,6 @@ function closeBigPicture () {
 bigPictureCloseBtn.addEventListener('click', () =>{
   closeBigPicture();
 });
-picturesList.addEventListener('click', getBigPictureData);
 
 const getComment = (item) => {
   const socialCommentElement = socialComment.cloneNode(true);
@@ -58,6 +57,7 @@ const getComment = (item) => {
 };
 
 const commentFragment = document.createDocumentFragment();
+
 const addComments = (arr) => {
   arr.forEach((item) => {
     commentFragment.append(getComment(item));
@@ -65,6 +65,9 @@ const addComments = (arr) => {
   socialCommentList.append(commentFragment);
 };
 
+const viewBigPicture = () => {
+  picturesList.addEventListener('click', getBigPictureData);
+};
 
 function getBigPictureData (evt){
   if (evt.target.tagName === 'IMG') {
@@ -80,5 +83,6 @@ function getBigPictureData (evt){
     openBigPicture();
   }
 }
-export {getBigPictureData};
+
+export {viewBigPicture};
 
