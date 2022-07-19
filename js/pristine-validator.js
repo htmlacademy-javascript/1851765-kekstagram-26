@@ -12,22 +12,32 @@ const pristine = new Pristine(formElement,pristineConfig);
 
 //проверка на количество хешт-егов
 const checkQuantityHashtags = (str) => {
-  const hashtags = str.split(' ');
+  const hashtags = str.trim().split(' ');
   return hashtags.length <= 5;
 };
+
+// //проверка на пробелы в конце хештега
+// const checkEmptySpaceHashtags = (str) => {
+//   const hashtags = str.split(' ');
+//   return hashtags.every(() => str[str.length - 1] !== ' ');
+// };
+
 //проверка уникальность хешт-егов
 const checkUniqueHashtags = (str) => {
-  const hashtags = str.toLowerCase().split(' ');
+  const hashtags = str.trim().toLowerCase().split(' ');
   return hashtags.length === new Set(hashtags).size;
 };
+
 //проверка на спецсимволы и # вначале хеш-тегов
 const checkValidStr = (str) => {
-  const hashtags = str.toLowerCase().split(' ');
+  const hashtags = str.trim().split(' ');
   if(hashtagsField.value === '') {
     return true;
+  } else {
+    return hashtags.every((item) => re.test(item));
   }
-  return hashtags.every((item) =>  re.test(item));
 };
+
 //проверка кол-во символов в описании изображения
 const checkDescriptionLength = (str) => str.length <=140;
 
@@ -42,6 +52,12 @@ pristine.addValidator(
   checkUniqueHashtags,
   'ERROR: Хеш-теги не должны повторяться, #smile и #sMIle - это одинаковые'
 );
+
+// pristine.addValidator(
+//   hashtagsField,
+//   checkEmptySpaceHashtags,
+//   'ERORR: В конце хеш-тега не может быть пробела'
+// );
 
 pristine.addValidator(
   hashtagsField,

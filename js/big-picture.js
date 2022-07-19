@@ -5,7 +5,7 @@ const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = document.querySelector('.big-picture__img').querySelector('img');
 const commentCount = document.querySelector('.comments-count');
 const socialCommentCount = document.querySelector('.social__comment-count');
-const commentsLoader = document.querySelector('.comments-loader');
+const commentsLoaderBtn = document.querySelector('.comments-loader');
 const likesCount = document.querySelector('.likes-count');
 const picturesList = document.querySelector('.pictures');
 const bigPictureCloseBtn = bigPicture.querySelector('.big-picture__cancel');
@@ -25,8 +25,6 @@ const onBigPictureEscKeydown = (evt) => {
 
 function openBigPicture () {
   bigPicture.classList.remove('hidden');
-  socialCommentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
   body.classList.add('modal-open');
 
   document.addEventListener('keydown', onBigPictureEscKeydown);
@@ -34,8 +32,6 @@ function openBigPicture () {
 
 function closeBigPicture () {
   bigPicture.classList.add('hidden');
-  socialCommentCount.classList.remove('hidden');
-  commentsLoader.classList.remove('hidden');
   document.body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onBigPictureEscKeydown);
@@ -65,6 +61,13 @@ const addComments = (arr) => {
   socialCommentList.append(commentFragment);
 };
 
+const addNewComments = (arr) => {
+  arr.splice(0, 5).forEach((item) => {
+    commentFragment.append(getComment(item));
+  });
+  socialCommentList.append(commentFragment);
+};
+
 const viewBigPicture = () => {
   picturesList.addEventListener('click', getBigPictureData);
 };
@@ -77,8 +80,21 @@ function getBigPictureData (evt){
       socialCaption.textContent = photo.description;
       commentCount.textContent = photo.comments.length;
       likesCount.textContent = photo.likes;
+      commentCount.textContent = photo.comments.length;
+      if (photo.comments.length < 5) {
+        socialCommentCount.textContent = ` ${photo.comments.length} из ${photo.comments.length} комментариев`;
+      } else {
+        socialCommentCount.textContent = ` 5 из ${photo.comments.length} комментариев`;
+      }
       socialCommentList.innerHTML = '';
-      addComments(photo.comments);
+      if ((photo.comments.length - 1) <= 5 ) {
+        addComments(photo.comments);
+      } else {
+        commentsLoaderBtn.addEventListener('click', (event) => {
+          event.preventDefault();
+          addNewComments(photo.comments);
+        });
+      }
     }
     openBigPicture();
   }

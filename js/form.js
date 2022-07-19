@@ -23,7 +23,7 @@ const onPictureFormEscKeydown = (evt) => {
 function openFormLoad() {
   overlayElement.classList.remove('hidden');
   body.classList.remove('modal-open');
-
+  formCloseBtn.addEventListener('click', closeFormLoad);
   document.addEventListener('keydown', onPictureFormEscKeydown);
 }
 //закрывем окно редактирования и удаляет слушатель на esc
@@ -54,8 +54,6 @@ formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
   }
 });
-
-formCloseBtn.addEventListener('click', () => closeFormLoad());
 
 const loadYourPicture = () => {
   imageInput.addEventListener('change', loadPicture);
