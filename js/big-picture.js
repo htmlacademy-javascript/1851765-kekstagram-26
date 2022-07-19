@@ -81,15 +81,12 @@ function getBigPictureData (evt){
       commentCount.textContent = photo.comments.length;
       likesCount.textContent = photo.likes;
       commentCount.textContent = photo.comments.length;
-      if (photo.comments.length < 5) {
-        socialCommentCount.textContent = ` ${photo.comments.length} из ${photo.comments.length} комментариев`;
-      } else {
-        socialCommentCount.textContent = ` 5 из ${photo.comments.length} комментариев`;
-      }
       socialCommentList.innerHTML = '';
       if ((photo.comments.length - 1) <= 5 ) {
+        socialCommentCount.textContent = ` ${photo.comments.length} из ${photo.comments.length} комментариев`;
         addComments(photo.comments);
       } else {
+        socialCommentCount.textContent = ` 5 из ${photo.comments.length} комментариев`;
         commentsLoaderBtn.addEventListener('click', (event) => {
           event.preventDefault();
           addNewComments(photo.comments);
