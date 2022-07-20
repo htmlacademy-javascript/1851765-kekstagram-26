@@ -1,4 +1,4 @@
-import { miniaturesArray } from './data.js';
+import { miniaturesArray} from './data.js';
 import { createMiniImageList } from './creat-miniatures.js';
 import { viewBigPicture } from './big-picture.js';
 import { loadYourPicture } from './form.js';

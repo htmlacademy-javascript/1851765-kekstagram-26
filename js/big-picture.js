@@ -4,8 +4,8 @@ const body = document.body;
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = document.querySelector('.big-picture__img').querySelector('img');
 const commentCount = document.querySelector('.comments-count');
-const socialCommentCount = document.querySelector('.social__comment-count');
-const commentsLoader = document.querySelector('.comments-loader');
+const commentCountPage = document.querySelector('.comments-count--page');
+const commentsLoaderBtn = document.querySelector('.comments-loader');
 const likesCount = document.querySelector('.likes-count');
 const picturesList = document.querySelector('.pictures');
 const bigPictureCloseBtn = bigPicture.querySelector('.big-picture__cancel');
@@ -25,8 +25,6 @@ const onBigPictureEscKeydown = (evt) => {
 
 function openBigPicture () {
   bigPicture.classList.remove('hidden');
-  socialCommentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
   body.classList.add('modal-open');
 
   document.addEventListener('keydown', onBigPictureEscKeydown);
@@ -34,8 +32,6 @@ function openBigPicture () {
 
 function closeBigPicture () {
   bigPicture.classList.add('hidden');
-  socialCommentCount.classList.remove('hidden');
-  commentsLoader.classList.remove('hidden');
   document.body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onBigPictureEscKeydown);
@@ -58,16 +54,40 @@ const getComment = (item) => {
 
 const commentFragment = document.createDocumentFragment();
 
-const addComments = (arr) => {
-  arr.forEach((item) => {
-    commentFragment.append(getComment(item));
+const addComments = (commentsList) => {
+  commentsList.forEach((comment) => {
+    commentFragment.append(getComment(comment));
   });
   socialCommentList.append(commentFragment);
 };
 
-const viewBigPicture = () => {
-  picturesList.addEventListener('click', getBigPictureData);
+const addNewComments = (commentsList) => {
+  const copyCommentsList = commentsList.slice();//копируем массив коментов
+  socialCommentList.innerHTML = ''; //обнуляем комментарии
+
+  if (copyCommentsList.length <= 5) { //проверяем на кол-вл комментов, если меньше 6 убираем кнопку "еще" и отрисовываем комменты
+    commentsLoaderBtn.classList.add('hidden');
+    commentCountPage.textContent = copyCommentsList.length;
+    addComments(copyCommentsList);
+
+  } else { //показыввем кнопку,вешаем слушатель на нее и забираем первые 5 коментов
+    commentCountPage.textContent = 5;
+    commentsLoaderBtn.classList.remove('hidden');
+    addComments(copyCommentsList.splice(0, 5));
+
+    commentsLoaderBtn.addEventListener ('click', () => onClickAddComments(copyCommentsList));
+  }
 };
+
+function onClickAddComments (copyCommentsList) {
+  if( copyCommentsList.length <= 5) {
+    commentsLoaderBtn.classList.add('hidden');
+    commentCountPage.textContent = Number(commentCountPage.textContent) + copyCommentsList.length;
+  } else {
+    commentCountPage.textContent = Number(commentCountPage.textContent) + 5;
+  }
+  addComments(copyCommentsList.splice(0, 5));
+}
 
 function getBigPictureData (evt){
   if (evt.target.tagName === 'IMG') {
@@ -78,11 +98,15 @@ function getBigPictureData (evt){
       commentCount.textContent = photo.comments.length;
       likesCount.textContent = photo.likes;
       socialCommentList.innerHTML = '';
-      addComments(photo.comments);
+      addNewComments(photo.comments);
     }
-    openBigPicture();
   }
+  openBigPicture();
 }
 
-export {viewBigPicture};
+const viewBigPicture = () => {
+  picturesList.addEventListener('click', getBigPictureData);
+};
 
+
+export {viewBigPicture};
