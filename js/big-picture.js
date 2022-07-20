@@ -4,7 +4,7 @@ const body = document.body;
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = document.querySelector('.big-picture__img').querySelector('img');
 const commentCount = document.querySelector('.comments-count');
-const socialCommentCount = document.querySelector('.social__comment-count');
+const commentCountPage = document.querySelector('.comments-count--page');
 const commentsLoaderBtn = document.querySelector('.comments-loader');
 const likesCount = document.querySelector('.likes-count');
 const picturesList = document.querySelector('.pictures');
@@ -54,22 +54,36 @@ const getComment = (item) => {
 
 const commentFragment = document.createDocumentFragment();
 
-const addComments = (arr) => {
-  arr.forEach((item) => {
-    commentFragment.append(getComment(item));
+const addComments = (commenstList) => {
+  commenstList.forEach((comment) => {
+    commentFragment.append(getComment(comment));
   });
   socialCommentList.append(commentFragment);
 };
 
-const addNewComments = (arr) => {
-  arr.splice(0, 5).forEach((item) => {
-    commentFragment.append(getComment(item));
-  });
-  socialCommentList.append(commentFragment);
-};
+const addNewComments = (commentsList) => {
+  const copyCommentsList = commentsList.slice();//копируем массив коментов
+  socialCommentList.innerHTML = ''; //обнуляем комментарии
 
-const viewBigPicture = () => {
-  picturesList.addEventListener('click', getBigPictureData);
+  if (copyCommentsList.length <= 5) { //проверяем на кол-вл комментов, если меньше 6 убираем кнопку "еще" и отрисовываем комменты
+    commentsLoaderBtn.classList.add('hidden');
+    commentCountPage.textContent = copyCommentsList.length;
+    addComments(copyCommentsList);
+
+  } else { //показыввем кнопку,вешаем слушатель на нее и забираем первые 5 коментов
+    commentCountPage.textContent = 5;
+    commentsLoaderBtn.classList.remove('hidden');
+    addComments(copyCommentsList.splice(0, 5));
+    commentsLoaderBtn.addEventListener ('click', () => {
+      if( copyCommentsList.length <= 5) {
+        commentsLoaderBtn.classList.add('hidden');
+      }
+      commentCountPage.textContent = Number(commentCountPage.textContent) + copyCommentsList.length;
+      addComments(copyCommentsList.splice(0, 5));
+    }
+    );
+  }
+  socialCommentList.append(commentFragment);
 };
 
 function getBigPictureData (evt){
@@ -80,22 +94,17 @@ function getBigPictureData (evt){
       socialCaption.textContent = photo.description;
       commentCount.textContent = photo.comments.length;
       likesCount.textContent = photo.likes;
-      commentCount.textContent = photo.comments.length;
       socialCommentList.innerHTML = '';
-      if ((photo.comments.length - 1) <= 5 ) {
-        socialCommentCount.textContent = ` ${photo.comments.length} из ${photo.comments.length} комментариев`;
-        addComments(photo.comments);
-      } else {
-        socialCommentCount.textContent = ` 5 из ${photo.comments.length} комментариев`;
-        commentsLoaderBtn.addEventListener('click', (event) => {
-          event.preventDefault();
-          addNewComments(photo.comments);
-        });
-      }
+      addNewComments(photo.comments);
     }
-    openBigPicture();
   }
+  openBigPicture();
 }
+
+const viewBigPicture = () => {
+  picturesList.addEventListener('click', getBigPictureData);
+};
+
 
 export {viewBigPicture};
 
