@@ -54,8 +54,8 @@ const getComment = (item) => {
 
 const commentFragment = document.createDocumentFragment();
 
-const addComments = (commenstList) => {
-  commenstList.forEach((comment) => {
+const addComments = (commentsList) => {
+  commentsList.forEach((comment) => {
     commentFragment.append(getComment(comment));
   });
   socialCommentList.append(commentFragment);
@@ -74,17 +74,20 @@ const addNewComments = (commentsList) => {
     commentCountPage.textContent = 5;
     commentsLoaderBtn.classList.remove('hidden');
     addComments(copyCommentsList.splice(0, 5));
-    commentsLoaderBtn.addEventListener ('click', () => {
-      if( copyCommentsList.length <= 5) {
-        commentsLoaderBtn.classList.add('hidden');
-      }
-      commentCountPage.textContent = Number(commentCountPage.textContent) + copyCommentsList.length;
-      addComments(copyCommentsList.splice(0, 5));
-    }
-    );
+
+    commentsLoaderBtn.addEventListener ('click', () => onClickAddComments(copyCommentsList));
   }
-  socialCommentList.append(commentFragment);
 };
+
+function onClickAddComments (copyCommentsList) {
+  if( copyCommentsList.length <= 5) {
+    commentsLoaderBtn.classList.add('hidden');
+    commentCountPage.textContent = Number(commentCountPage.textContent) + copyCommentsList.length;
+  } else {
+    commentCountPage.textContent = Number(commentCountPage.textContent) + 5;
+  }
+  addComments(copyCommentsList.splice(0, 5));
+}
 
 function getBigPictureData (evt){
   if (evt.target.tagName === 'IMG') {
@@ -107,4 +110,3 @@ const viewBigPicture = () => {
 
 
 export {viewBigPicture};
-
