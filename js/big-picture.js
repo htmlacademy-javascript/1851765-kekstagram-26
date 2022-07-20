@@ -14,7 +14,7 @@ const socialCommentList = document.querySelector('.social__comments');
 const socialComment = document.querySelector('.social__comment');
 const COMMENT_WIDTH = 35;
 const COMMENT_HEIGHT = 35;
-
+let addCommentsHandler = null;
 
 const onBigPictureEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -26,20 +26,17 @@ const onBigPictureEscKeydown = (evt) => {
 function openBigPicture () {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
-
   document.addEventListener('keydown', onBigPictureEscKeydown);
+  bigPictureCloseBtn.addEventListener('click', closeBigPicture);
 }
 
 function closeBigPicture () {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
-
+  commentsLoaderBtn.removeEventListener ('click', addCommentsHandler);
   document.removeEventListener('keydown', onBigPictureEscKeydown);
+  bigPictureCloseBtn.removeEventListener('click',closeBigPicture);
 }
-
-bigPictureCloseBtn.addEventListener('click', () =>{
-  closeBigPicture();
-});
 
 const getComment = (item) => {
   const socialCommentElement = socialComment.cloneNode(true);
@@ -65,6 +62,12 @@ const addNewComments = (commentsList) => {
   const copyCommentsList = commentsList.slice();//копируем массив коментов
   socialCommentList.innerHTML = ''; //обнуляем комментарии
 
+  const addMoreComents = () => {
+    onClickAddComments(copyCommentsList);
+  };
+
+  addCommentsHandler = addMoreComents;
+
   if (copyCommentsList.length <= 5) { //проверяем на кол-вл комментов, если меньше 6 убираем кнопку "еще" и отрисовываем комменты
     commentsLoaderBtn.classList.add('hidden');
     commentCountPage.textContent = copyCommentsList.length;
@@ -75,7 +78,7 @@ const addNewComments = (commentsList) => {
     commentsLoaderBtn.classList.remove('hidden');
     addComments(copyCommentsList.splice(0, 5));
 
-    commentsLoaderBtn.addEventListener ('click', () => onClickAddComments(copyCommentsList));
+    commentsLoaderBtn.addEventListener ('click', addCommentsHandler);
   }
 };
 
@@ -83,6 +86,7 @@ function onClickAddComments (copyCommentsList) {
   if( copyCommentsList.length <= 5) {
     commentsLoaderBtn.classList.add('hidden');
     commentCountPage.textContent = Number(commentCountPage.textContent) + copyCommentsList.length;
+    commentsLoaderBtn.removeEventListener ('click', addCommentsHandler);
   } else {
     commentCountPage.textContent = Number(commentCountPage.textContent) + 5;
   }
