@@ -15,7 +15,7 @@ noUiSlider.create(sliderElement, {
   step: 1,
   connect: 'lower',
 });
-//находим нажатую радио-кнопку
+//получаем название выбранного эффекта
 const nameEffect = () => {
   for (let i = 0; i < effectImageToggles.length; i++) {
     if (effectImageToggles[i].checked) {
@@ -78,7 +78,7 @@ function sliderEffectOption () {
   });
 }
 
-const effectForImageChange = () => {
+const effectForImage = () => {
   sliderEffectOption();
   sliderElement.noUiSlider.on('update', () => {
     effectLevelElement.value = sliderElement.noUiSlider.get();
@@ -96,4 +96,4 @@ const effectForImageChange = () => {
     }
   });
 };
-export { effectForImageChange };
+export { effectForImage };
