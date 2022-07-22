@@ -104,8 +104,8 @@ function getBigPictureData (evt){
       socialCommentList.innerHTML = '';
       addNewComments(photo.comments);
     }
+    openBigPicture();
   }
-  openBigPicture();
 }
 
 const viewBigPicture = () => {
