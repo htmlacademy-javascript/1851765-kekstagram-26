@@ -8,6 +8,7 @@ const formCloseBtn = document.querySelector('#upload-cancel');
 const textHashtagsField = document.querySelector('.text__hashtags');
 const formElement = document.querySelector('#upload-select-image');
 const textDescriptionField = document.querySelector('.text__description');
+const effectLevelElement = document.querySelector('.img-upload__effect-level'); // слайдер еффектов
 
 
 const onPictureFormEscKeydown = (evt) => {
@@ -23,6 +24,7 @@ const onPictureFormEscKeydown = (evt) => {
 function openFormLoad() {
   overlayElement.classList.remove('hidden');
   body.classList.remove('modal-open');
+  effectLevelElement.classList.add('hidden');
   formCloseBtn.addEventListener('click', closeFormLoad);
   document.addEventListener('keydown', onPictureFormEscKeydown);
 }
