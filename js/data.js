@@ -1,6 +1,6 @@
 import {getRandomArrayElement, getRandomNumber} from './util.js';
 //создание постов
-let commentId = 1; //начальное число id
+let commentId = 0; //начальное число id
 const commentAvatar = [1,6]; //количество аватарок
 const maxCommentsQuantity = [11,19]; //случайное число из промежутка для количества комментариев под постом
 const likesForPost = [15, 200]; // случайное количество лайков под постом из интервала
