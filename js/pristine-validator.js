@@ -53,12 +53,6 @@ pristine.addValidator(
   'ERROR: Хеш-теги не должны повторяться, #smile и #sMIle - это одинаковые'
 );
 
-// pristine.addValidator(
-//   hashtagsField,
-//   checkEmptySpaceHashtags,
-//   'ERORR: В конце хеш-тега не может быть пробела'
-// );
-
 pristine.addValidator(
   hashtagsField,
   checkValidStr,

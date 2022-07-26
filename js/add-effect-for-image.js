@@ -51,7 +51,6 @@ function sliderEffectOption () {
           min: 0,
           max: 100
         },
-        start: 100,
         step: 1
       });
       sliderElement.noUiSlider.set(100);
@@ -61,7 +60,6 @@ function sliderEffectOption () {
           min: 1,
           max: 3
         },
-        start: 3,
         step: 0.1
       });
       sliderElement.noUiSlider.set(3);
@@ -71,29 +69,38 @@ function sliderEffectOption () {
           min: 0,
           max: 3
         },
-        start: 3,
         step: 0.1
       });
+      sliderElement.noUiSlider.set(3);
     }
   });
 }
 
-const effectForImage = () => {
+const addEffectForImage = () => {
   sliderEffectOption();
   sliderElement.noUiSlider.on('update', () => {
     effectLevelElement.value = sliderElement.noUiSlider.get();
     const sliderValue = sliderElement.noUiSlider.get();
-    if (nameEffect() === 'chrome') {
-      imageUploadPreview.style.filter = `grayscale(${sliderValue})`;
-    } else if (nameEffect() === 'sepia') {
-      imageUploadPreview.style.filter = `sepia(${sliderValue})`;
-    } else if (nameEffect() === 'marvin') {
-      imageUploadPreview.style.filter = `invert(${sliderValue}%)`;
-    } else if (nameEffect() === 'phobos') {
-      imageUploadPreview.style.filter = `blur(${sliderValue}px)`;
-    } else if (nameEffect() === 'heat') {
-      imageUploadPreview.style.filter = `brightness(${sliderValue})`;
+    const nameEffectForImage = nameEffect();
+    switch (nameEffectForImage) {
+      case 'chrome':
+        imageUploadPreview.style.filter = `grayscale(${sliderValue})`;
+        break;
+      case 'sepia':
+        imageUploadPreview.style.filter = `sepia(${sliderValue})`;
+        break;
+      case 'marvin':
+        imageUploadPreview.style.filter = `invert(${sliderValue}%)`;
+        break;
+      case 'phobos':
+        imageUploadPreview.style.filter = `blur(${sliderValue}px)`;
+        break;
+      case 'heat':
+        imageUploadPreview.style.filter = `brightness(${sliderValue})`;
+        break;
+      default:
+        imageUploadPreview.style.filter = '';
     }
   });
 };
-export { effectForImage };
+export { addEffectForImage };

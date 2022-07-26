@@ -10,7 +10,7 @@ const controlScaleImage = () => {
     } else if ((evt.target === controlSmallerScale && (parseFloat(controlValueScale.value) >=26 ))) {
       controlValueScale.value = `${parseFloat(controlValueScale.value) - 25}%`;
     }
-    image.style.scale = (parseFloat(controlValueScale.value))/100;
+    image.style.transform = `scale(${parseFloat(controlValueScale.value)/100})`;
   });
 };
 export { controlScaleImage };
