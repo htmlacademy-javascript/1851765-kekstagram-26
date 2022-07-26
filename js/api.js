@@ -1,6 +1,6 @@
 const urlGetData = 'https://26.javascript.pages.academy/kekstagram/data';
 const urlSendData = 'https://26.javascript.pages.academy/kekstagram';
-const getData = async (successForMiniImage, succesForBigPicture, onFail) => {
+const getData = async (onSuccess, onFail) => {
   try {
     const response = await fetch(
       urlGetData
@@ -10,8 +10,7 @@ const getData = async (successForMiniImage, succesForBigPicture, onFail) => {
       throw new Error('Извините. Сервер временно недоступен. Попробуйте перезагрузить страницу или зайти позже.');
     }
     const images = await response.json();
-    successForMiniImage(images);
-    succesForBigPicture(images);
+    onSuccess(images);
   } catch(error) {
     onFail(error.message);
   }

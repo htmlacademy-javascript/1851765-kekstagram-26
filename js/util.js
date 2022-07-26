@@ -38,9 +38,34 @@ const checkLengthString = (string, maxString) => {
   return false;
 };
 
-const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)]; // ищем случайный элемент массива
-const getRandomNumber = (numbers) => getRandomPositiveInteger(numbers[0], numbers[1]); //ищем случайное число из интервала
+// ищем случайный элемент массива
+const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
+
+//ищем случайное число из интервала
+const getRandomNumber = (numbers) => getRandomPositiveInteger(numbers[0], numbers[1]);
+
 //проверяем нажата ли клавиша esc
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomPositiveInteger, checkLengthString, isEscapeKey, getRandomArrayElement, getRandomNumber, showAlertErr};
+function debounce (callback, timeoutDelay) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+function throttle (callback, delayBetweenFrames) {
+
+  let lastTime = 0;
+
+  return (...rest) => {
+    const now = new Date();
+    if (now - lastTime >= delayBetweenFrames) {
+      callback.apply(this, rest);
+      lastTime = now;
+    }
+  };
+}
+
+export {debounce, throttle, getRandomPositiveInteger, checkLengthString, isEscapeKey, getRandomArrayElement, getRandomNumber, showAlertErr};
