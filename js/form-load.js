@@ -21,14 +21,14 @@ const onPictureFormEscKeydown = (evt) => {
 
 function openFormLoad() {
   overlayElement.classList.remove('hidden');
-  body.classList.remove('modal-open');
+  body.classList.add('modal-open');
   effectLevelElement.classList.add('hidden');
   formCloseBtn.addEventListener('click', closeFormLoad);
   document.addEventListener('keydown', onPictureFormEscKeydown);
 }
 //закрывем окно редактирования и удаляет слушатель на esc
 function closeFormLoad () {
-  body.classList.add('modal-open');
+  body.classList.remove('modal-open');
   overlayElement.classList.add('hidden');
   imagePreview.style.scale = 1; //обнуляем масштаб изображения
   formElement.reset(); // обнуляем формы
