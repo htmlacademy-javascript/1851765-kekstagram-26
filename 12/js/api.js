@@ -1,5 +1,5 @@
 const urlGetData = 'https://26.javascript.pages.academy/kekstagram/data';
-const urlSendData = 'https://26.javascript.pages.academy/kekstagram';
+const urlSendData = 'https://26.javascript.pages.academ/kekstagram';
 const getData = async (onSuccess, onFail) => {
   try {
     const response = await fetch(
