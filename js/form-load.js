@@ -9,7 +9,7 @@ const overlayElement = document.querySelector('.img-upload__overlay');
 const formElement = document.querySelector('#upload-select-image');
 
 
-const onPictureFormEscKeydown = (evt) => {
+const onFormLoadEscKeydown = (evt) => {
   if((textHashtagsField === document.activeElement) || (textDescriptionField === document.activeElement)){
     return evt;
   } else {
@@ -24,7 +24,7 @@ function openFormLoad() {
   body.classList.add('modal-open');
   effectLevelElement.classList.add('hidden');
   formCloseBtn.addEventListener('click', closeFormLoad);
-  document.addEventListener('keydown', onPictureFormEscKeydown);
+  document.addEventListener('keydown', onFormLoadEscKeydown);
 }
 //закрывем окно редактирования и удаляет слушатель на esc
 function closeFormLoad () {
@@ -33,8 +33,8 @@ function closeFormLoad () {
   imagePreview.style.scale = 1; //обнуляем масштаб изображения
   formElement.reset(); // обнуляем формы
   imagePreview.className = ''; //обнуляем эффекты на изображении
-  document.removeEventListener('keydown', onPictureFormEscKeydown);
+  document.removeEventListener('keydown', onFormLoadEscKeydown);
 }
 
-export {openFormLoad, closeFormLoad};
+export {openFormLoad, closeFormLoad, onFormLoadEscKeydown};
 
