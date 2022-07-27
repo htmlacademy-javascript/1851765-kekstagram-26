@@ -1,6 +1,5 @@
 const miniatureTemplate = document.querySelector('#picture').content;
 const picturesList = document.querySelector('.pictures');
-
 const miniatureListFragment = document.createDocumentFragment();
 //перебираем массив, поочереди беря из каждого обьекта - значения ключей (свойства)
 const createMiniImageList = (miniatures, cb) => {
