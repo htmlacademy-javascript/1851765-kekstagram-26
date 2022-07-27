@@ -2,6 +2,7 @@ import { pristine } from './pristine-validator.js';
 import { openFormLoad } from './form-load.js';
 import { isEscapeKey } from './util.js';
 import { sendData } from './api.js';
+import { onFormLoadEscKeydown } from './form-load.js';
 const formElement = document.querySelector('#upload-select-image');
 const imageInput = document.querySelector('#upload-file');
 const imagePreview = document.querySelector('.img-upload__preview').querySelector('img');
@@ -37,6 +38,7 @@ const unblockSubmitBtn = () => {
 };
 
 const showErrorMessage = () => {
+  document.removeEventListener('keydown', onFormLoadEscKeydown);
   const errorMessage = errorMessageTemplate.cloneNode(true);
   const closeErrMessageBtn = errorMessage.querySelector('.error__button');
   body.append(errorMessage);
@@ -50,6 +52,7 @@ const showErrorMessage = () => {
   };
 
   function closeErrorMessage () {
+    document.addEventListener('keydown', onFormLoadEscKeydown);
     document.removeEventListener('keydown', onErrMessageEscKeydown);
     closeErrMessageBtn.removeEventListener('click', closeErrorMessage);
     messageField.remove();
@@ -84,7 +87,6 @@ const showSuccessMessage = () => {
     closeSuccessMessageBtn.removeEventListener('click', closeSuccessMessage);
     messageField.remove();
   }
-
   document.addEventListener('keydown', onSuccessMessageEscKeydown);
   closeSuccessMessageBtn.addEventListener('click', closeSuccessMessage);
   messageField.addEventListener('click', (evt) => {
@@ -118,4 +120,4 @@ const setUserFormSubmit = (onSuccess) => {
   });
 };
 
-export {setUserFormSubmit, loadYourPicture};
+export {setUserFormSubmit, loadYourPicture, showErrorMessage};

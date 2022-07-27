@@ -5,7 +5,6 @@ const effectImageToggles = effectsList.querySelectorAll('input[type="radio"]');
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectLevelElement = document.querySelector('.effect-level__value');
 
-
 noUiSlider.create(sliderElement, {
   range: {
     min: 0,
