@@ -1,0 +1,13 @@
+import { loadYourPicture } from './user-form.js';
+import { controlScaleImage } from './control-scale-image.js';
+import  { addEffectForImage } from './add-effect-for-image.js';
+import { setUserFormSubmit } from './user-form.js';
+import { closeFormLoad } from './form-load.js';
+import {  filterUserPictures } from './filter-image.js';
+import { showAlertErr } from './util.js';
+import {getData} from './api.js';
+loadYourPicture();
+controlScaleImage();
+addEffectForImage();
+setUserFormSubmit(closeFormLoad);
+getData(filterUserPictures, showAlertErr);
