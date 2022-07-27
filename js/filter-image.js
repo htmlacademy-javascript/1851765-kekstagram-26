@@ -38,7 +38,6 @@ const debounceCallback = (button, data) => {
       break;
     default:
       createMiniImageList(data, clearMiniaturesList);
-      viewBigPicture(data);
       break;
   }
 };
