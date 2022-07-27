@@ -3,7 +3,8 @@ const picturesList = document.querySelector('.pictures');
 
 const miniatureListFragment = document.createDocumentFragment();
 //перебираем массив, поочереди беря из каждого обьекта - значения ключей (свойства)
-const createMiniImageList = (miniatures) => {
+const createMiniImageList = (miniatures, cb) => {
+  cb();
   miniatures.forEach(({id, url, likes, comments}) => {
     const miniatureItem = miniatureTemplate.cloneNode(true);
     miniatureItem.querySelector('.picture__img').src = url;

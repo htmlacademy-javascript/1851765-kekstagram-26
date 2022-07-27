@@ -118,4 +118,4 @@ const setUserFormSubmit = (onSuccess) => {
   });
 };
 
-export {setUserFormSubmit, loadYourPicture};
+export {setUserFormSubmit, loadYourPicture, showErrorMessage};
