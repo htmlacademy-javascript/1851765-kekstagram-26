@@ -16,12 +16,6 @@ const checkQuantityHashtags = (str) => {
   return hashtags.length <= 5;
 };
 
-// //проверка на пробелы в конце хештега
-// const checkEmptySpaceHashtags = (str) => {
-//   const hashtags = str.split(' ');
-//   return hashtags.every(() => str[str.length - 1] !== ' ');
-// };
-
 //проверка уникальность хешт-егов
 const checkUniqueHashtags = (str) => {
   const hashtags = str.trim().toLowerCase().split(' ');
