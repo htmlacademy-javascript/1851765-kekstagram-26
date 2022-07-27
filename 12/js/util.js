@@ -5,14 +5,18 @@ const showAlertErr = (text) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = '100';
   alertContainer.style.position = 'absolute';
-  alertContainer.style.left = '0';
+  alertContainer.style.left = '50%';
   alertContainer.style.top = '0';
   alertContainer.style.right = '0';
-  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.padding = '10px 50px';
+  alertContainer.style.width = '500px';
+  alertContainer.style.marginTop = '325px';
+  alertContainer.style.border = '2px solid #ffffff';
+  alertContainer.style.marginLeft = '-250px';
   alertContainer.style.textAlign = 'center';
   alertContainer.style.fontSize = '18px';
-  alertContainer.style.backgroundColor = '#ffdab9';
-  alertContainer.style.color = '#800000';
+  alertContainer.style.backgroundColor = '#000000';
+  alertContainer.style.color = '#ffffff';
   alertContainer.textContent = text;
 
   document.body.append(alertContainer);

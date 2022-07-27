@@ -5,14 +5,10 @@ const getData = async (onSuccess, onFail) => {
     const response = await fetch(
       urlGetData
     );
-
-    if (!response.ok) {
-      throw new Error('Извините. Сервер временно недоступен. Попробуйте перезагрузить страницу или зайти позже.');
-    }
     const images = await response.json();
     onSuccess(images);
   } catch(error) {
-    onFail(error.message);
+    onFail('Что-то пошло не так. Попробуйте перезагрузить страницу или зайти позже.');
   }
 };
 
