@@ -1,5 +1,5 @@
 import { debounce } from './util.js';
-import { createMiniImageList } from './creat-miniatures.js';
+import { createMiniImagesList } from './creat-miniatures.js';
 import { viewBigPicture } from './big-picture.js';
 const NUMBER_OF_RANDOM_PHOTOS = 10;
 const RENDER_DELAY = 500;
@@ -15,15 +15,15 @@ const clearMiniaturesList = () => {
 
 const filterPicturesRandom = (data) => {
   const filteredPhotos = data.slice().sort(() => Math.random() - 0.5).slice(0, NUMBER_OF_RANDOM_PHOTOS);
-  createMiniImageList(filteredPhotos, clearMiniaturesList);
+  createMiniImagesList(filteredPhotos, clearMiniaturesList);
 };
 
 const filterPicturesByDiscussed = (data) => {
   const filteredPhotos = data.slice().sort((a, b) => b.comments.length - a.comments.length);
-  createMiniImageList(filteredPhotos, clearMiniaturesList);
+  createMiniImagesList(filteredPhotos, clearMiniaturesList);
 };
 
-const debounceCallback = (button, data) => {
+const getSelectsFilter = (button, data) => {
   filterButtons.forEach((filterButton) => {
     filterButton.classList.remove('img-filters__button--active');
   });
@@ -37,18 +37,18 @@ const debounceCallback = (button, data) => {
       filterPicturesByDiscussed(data);
       break;
     default:
-      createMiniImageList(data, clearMiniaturesList);
+      createMiniImagesList(data, clearMiniaturesList);
       break;
   }
 };
 
 const filterUserPictures = (data) => {
-  createMiniImageList(data, clearMiniaturesList);
+  createMiniImagesList(data, clearMiniaturesList);
   viewBigPicture(data);
   imgFiltersContainer.classList.remove('img-filters--inactive');
   filterButtons.forEach((filterButton) => {
     const debouncedCallback = debounce(
-      () => debounceCallback(filterButton, data),
+      () => getSelectsFilter(filterButton, data),
       RENDER_DELAY,
     );
     filterButton.addEventListener('click', debouncedCallback);

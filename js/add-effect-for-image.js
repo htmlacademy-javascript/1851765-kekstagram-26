@@ -15,7 +15,7 @@ noUiSlider.create(sliderElement, {
   connect: 'lower',
 });
 //получаем название выбранного эффекта
-const nameEffect = () => {
+const getNameCheckedEffect = () => {
   for (let i = 0; i < effectImageToggles.length; i++) {
     if (effectImageToggles[i].checked) {
       return effectImageToggles[i].value;
@@ -25,16 +25,16 @@ const nameEffect = () => {
 
 function sliderEffectOption () {
   effectsList.addEventListener('click', () => {
-    nameEffect();
-    if (nameEffect() ===  'none') {
+    const nameCheckedEffect = getNameCheckedEffect();
+    if (nameCheckedEffect ===  'none') {
       effectLevelSliderElement.classList.add('hidden');
       imageUploadPreview.style.filter = '';
     } else {
       effectLevelSliderElement.classList.remove('hidden');
     }
     imageUploadPreview.className = '';
-    imageUploadPreview.classList.add(`effects__preview--${nameEffect()}`);
-    if (nameEffect() === 'chrome' || nameEffect() === 'sepia') {
+    imageUploadPreview.classList.add(`effects__preview--${nameCheckedEffect}`);
+    if (nameCheckedEffect === 'chrome' || nameCheckedEffect === 'sepia') {
       sliderElement.noUiSlider.updateOptions ({
         range: {
           min: 0,
@@ -44,7 +44,7 @@ function sliderEffectOption () {
         step: 0.1
       });
       sliderElement.noUiSlider.set(1);
-    } else if (nameEffect() === 'marvin') {
+    } else if (nameCheckedEffect === 'marvin') {
       sliderElement.noUiSlider.updateOptions ({
         range: {
           min: 0,
@@ -53,7 +53,7 @@ function sliderEffectOption () {
         step: 1
       });
       sliderElement.noUiSlider.set(100);
-    } else if (nameEffect() === 'heat') {
+    } else if (nameCheckedEffect === 'heat') {
       sliderElement.noUiSlider.updateOptions ({
         range: {
           min: 1,
@@ -62,7 +62,7 @@ function sliderEffectOption () {
         step: 0.1
       });
       sliderElement.noUiSlider.set(3);
-    } else if (nameEffect() === 'phobos') {
+    } else if (nameCheckedEffect === 'phobos') {
       sliderElement.noUiSlider.updateOptions ({
         range: {
           min: 0,
@@ -80,8 +80,8 @@ const addEffectForImage = () => {
   sliderElement.noUiSlider.on('update', () => {
     effectLevelElement.value = sliderElement.noUiSlider.get();
     const sliderValue = sliderElement.noUiSlider.get();
-    const nameEffectForImage = nameEffect();
-    switch (nameEffectForImage) {
+    const nameCheckedEffect = getNameCheckedEffect();
+    switch (nameCheckedEffect) {
       case 'chrome':
         imageUploadPreview.style.filter = `grayscale(${sliderValue})`;
         break;

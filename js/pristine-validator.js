@@ -1,3 +1,5 @@
+const HASHTAG_MAX_LEHGTH = 5;
+const DESCRIPTION_MAX_LENGTH = 140;
 const hashtagsField = document.querySelector('.text__hashtags');
 const descriptionField = document.querySelector('.text__description');
 const formElement = document.querySelector('#upload-select-image');
@@ -13,7 +15,7 @@ const pristine = new Pristine(formElement,pristineConfig);
 //проверка на количество хешт-егов
 const checkQuantityHashtags = (str) => {
   const hashtags = str.trim().split(' ');
-  return hashtags.length <= 5;
+  return hashtags.length <= HASHTAG_MAX_LEHGTH;
 };
 
 //проверка уникальность хешт-егов
@@ -33,7 +35,7 @@ const checkValidStr = (str) => {
 };
 
 //проверка кол-во символов в описании изображения
-const checkDescriptionLength = (str) => str.length <=140;
+const checkDescriptionLength = (str) => str.length <= DESCRIPTION_MAX_LENGTH;
 
 // валидация хеш-тегов
 pristine.addValidator(
