@@ -1,5 +1,5 @@
 import { isEscapeKey } from './util.js';
-const imagePreview = document.querySelector('.img-upload__preview').querySelector('img');
+
 const textDescriptionField = document.querySelector('.text__description');
 const effectLevelElement = document.querySelector('.img-upload__effect-level'); // слайдер эффектов
 const formCloseBtn = document.querySelector('#upload-cancel');
@@ -9,7 +9,7 @@ const overlayElement = document.querySelector('.img-upload__overlay');
 const formElement = document.querySelector('#upload-select-image');
 
 
-const onFormLoadEscKeydown = (evt) => {
+const closeFormLoadForEscKeydown = (evt) => {
   if((textHashtagsField === document.activeElement) || (textDescriptionField === document.activeElement)){
     return evt;
   } else {
@@ -24,17 +24,19 @@ function openFormLoad() {
   body.classList.add('modal-open');
   effectLevelElement.classList.add('hidden');
   formCloseBtn.addEventListener('click', closeFormLoad);
-  document.addEventListener('keydown', onFormLoadEscKeydown);
+  document.addEventListener('keydown', closeFormLoadForEscKeydown);
 }
 //закрывем окно редактирования и удаляет слушатель на esc
 function closeFormLoad () {
   body.classList.remove('modal-open');
   overlayElement.classList.add('hidden');
-  imagePreview.style.scale = 1; //обнуляем масштаб изображения
+  const imagePreview = document.querySelector('.img-upload__preview').querySelector('img');
+  imagePreview.style.transform = 'scale(1)'; //обнуляем масштаб изображения
+  imagePreview.className = ''; //обнуляем классы на изображении
+  imagePreview.style.filter = ''; //удаляем эффекты на изображении
   formElement.reset(); // обнуляем формы
-  imagePreview.className = ''; //обнуляем эффекты на изображении
-  document.removeEventListener('keydown', onFormLoadEscKeydown);
+  document.removeEventListener('keydown', closeFormLoadForEscKeydown);
 }
 
-export {openFormLoad, closeFormLoad, onFormLoadEscKeydown};
+export {openFormLoad, closeFormLoad, closeFormLoadForEscKeydown};
 

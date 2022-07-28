@@ -2,7 +2,7 @@ import { pristine } from './pristine-validator.js';
 import { openFormLoad } from './form-load.js';
 import { isEscapeKey } from './util.js';
 import { sendData } from './api.js';
-import { onFormLoadEscKeydown } from './form-load.js';
+import { closeFormLoadForEscKeydown } from './form-load.js';
 const formElement = document.querySelector('#upload-select-image');
 const imageInput = document.querySelector('#upload-file');
 const imagePreview = document.querySelector('.img-upload__preview').querySelector('img');
@@ -33,18 +33,18 @@ const blockSubmitBtn = () => {
   uploadSubmitBtn.disabled = true;
 };
 
-const unblockSubmitBtn = () => {
+const unlocksSubmitBtn = () => {
   uploadSubmitBtn.disabled = false;
 };
 
 const showErrorMessage = () => {
-  document.removeEventListener('keydown', onFormLoadEscKeydown);
+  document.removeEventListener('keydown', closeFormLoadForEscKeydown);
   const errorMessage = errorMessageTemplate.cloneNode(true);
   const closeErrMessageBtn = errorMessage.querySelector('.error__button');
   body.append(errorMessage);
   const messageField = document.querySelector('.error');
   messageField.style.zIndex = '100';
-  const onErrMessageEscKeydown = (evt) => {
+  const closeMessageForEscKeydown = (evt) => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
       closeErrorMessage();
@@ -52,13 +52,13 @@ const showErrorMessage = () => {
   };
 
   function closeErrorMessage () {
-    document.addEventListener('keydown', onFormLoadEscKeydown);
-    document.removeEventListener('keydown', onErrMessageEscKeydown);
+    document.addEventListener('keydown', closeFormLoadForEscKeydown);
+    document.removeEventListener('keydown', closeMessageForEscKeydown);
     closeErrMessageBtn.removeEventListener('click', closeErrorMessage);
     messageField.remove();
   }
 
-  document.addEventListener('keydown', onErrMessageEscKeydown);
+  document.addEventListener('keydown', closeMessageForEscKeydown);
   closeErrMessageBtn.addEventListener('click', closeErrorMessage);
   messageField.addEventListener('click', (evt) => {
     if (evt.target !== messageField) {
@@ -75,7 +75,7 @@ const showSuccessMessage = () => {
   body.append(successMessage);
   const messageField = document.querySelector('.success');
 
-  const onSuccessMessageEscKeydown = (evt) => {
+  const closeMessageForEscKeydown = (evt) => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
       closeSuccessMessage();
@@ -83,11 +83,11 @@ const showSuccessMessage = () => {
   };
 
   function closeSuccessMessage() {
-    document.removeEventListener('keydown', onSuccessMessageEscKeydown);
+    document.removeEventListener('keydown', closeMessageForEscKeydown);
     closeSuccessMessageBtn.removeEventListener('click', closeSuccessMessage);
     messageField.remove();
   }
-  document.addEventListener('keydown', onSuccessMessageEscKeydown);
+  document.addEventListener('keydown', closeMessageForEscKeydown);
   closeSuccessMessageBtn.addEventListener('click', closeSuccessMessage);
   messageField.addEventListener('click', (evt) => {
     if (evt.target !== messageField) {
@@ -107,11 +107,11 @@ const setUserFormSubmit = (onSuccess) => {
       sendData(
         () => {
           onSuccess();
-          unblockSubmitBtn();
+          unlocksSubmitBtn();
           showSuccessMessage();
         },
         () => {
-          unblockSubmitBtn();
+          unlocksSubmitBtn();
           showErrorMessage();
         },
         new FormData(evt.target),
@@ -120,4 +120,4 @@ const setUserFormSubmit = (onSuccess) => {
   });
 };
 
-export {setUserFormSubmit, loadYourPicture, showErrorMessage};
+export {setUserFormSubmit, loadYourPicture};
