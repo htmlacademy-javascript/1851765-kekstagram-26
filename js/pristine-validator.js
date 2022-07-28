@@ -1,4 +1,4 @@
-const HASHTAG_MAX_LEHGTH = 5;
+const HASHTAGS_MAX_QUANTITY = 5;
 const DESCRIPTION_MAX_LENGTH = 140;
 const hashtagsField = document.querySelector('.text__hashtags');
 const descriptionField = document.querySelector('.text__description');
@@ -15,7 +15,7 @@ const pristine = new Pristine(formElement,pristineConfig);
 //проверка на количество хешт-егов
 const checkQuantityHashtags = (str) => {
   const hashtags = str.trim().split(' ');
-  return hashtags.length <= HASHTAG_MAX_LEHGTH;
+  return hashtags.length <= HASHTAGS_MAX_QUANTITY;
 };
 
 //проверка уникальность хешт-егов
@@ -41,7 +41,7 @@ const checkDescriptionLength = (str) => str.length <= DESCRIPTION_MAX_LENGTH;
 pristine.addValidator(
   hashtagsField,
   checkQuantityHashtags,
-  'ERROR: Максимальное количество допустимых хешт-егов - 5'
+  `ERROR: Максимальное количество допустимых хешт-егов - ${HASHTAGS_MAX_QUANTITY}`
 );
 pristine.addValidator(
   hashtagsField,
@@ -59,7 +59,7 @@ pristine.addValidator(
 pristine.addValidator(
   descriptionField,
   checkDescriptionLength,
-  'ERROR: Максимальное количество символов - не больше 140.'
+  `ERROR: Максимальное количество символов - не больше ${DESCRIPTION_MAX_LENGTH}.`
 );
 
 export {pristine};
