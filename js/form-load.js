@@ -33,7 +33,7 @@ function closeFormLoad () {
   const imagePreview = document.querySelector('.img-upload__preview').querySelector('img');
   imagePreview.style.transform = 'scale(1)'; //обнуляем масштаб изображения
   imagePreview.className = ''; //обнуляем классы на изображении
-  imagePreview.style.filter = ''; //удаляем эффекты на изображении
+  imagePreview.style.filter = ''; //удаляем эффект фильтра на изображении
   formElement.reset(); // обнуляем формы
   document.removeEventListener('keydown', closeFormLoadForEscKeydown);
 }
