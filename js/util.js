@@ -26,14 +26,6 @@ const showAlertErr = (text) => {
   }, ALERT_SHOW_TIME);
 };
 
-//находим целое положительное случайное число из промежутка чисел a и b.
-const getRandomPositiveInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-
 //проверяем нажата ли клавиша esc
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
@@ -45,4 +37,4 @@ function debounce (callback, timeoutDelay) {
   };
 }
 
-export {debounce, getRandomPositiveInteger, isEscapeKey,showAlertErr};
+export {debounce, isEscapeKey, showAlertErr};

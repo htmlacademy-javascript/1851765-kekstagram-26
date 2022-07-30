@@ -14,6 +14,7 @@ const bigPictureCloseBtn = bigPicture.querySelector('.big-picture__cancel');
 const socialCaption = document.querySelector('.social__caption');
 const socialCommentList = document.querySelector('.social__comments');
 const socialComment = document.querySelector('.social__comment');
+const classNameMiniImage = 'picture__img';
 let addCommentsHandler = null;
 
 const closeBigPictureForEscKeydown = (evt) => {
@@ -95,7 +96,7 @@ function onClickAddComments (copyCommentsList) {
 const viewBigPicture = (dataImages) => {
   picturesList.addEventListener('click', getBigPictureData);
   function getBigPictureData (evt){
-    if (evt.target.className === 'picture__img') {
+    if (evt.target.className === classNameMiniImage) {
       const photo = dataImages.find(({id}) => Number(id) === Number(evt.target.dataset.id));
       if (photo) {
         bigPictureImg.src = photo.url;
